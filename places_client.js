@@ -27,24 +27,38 @@ function initialize_map(el, lat, lon) {
   service.nearbySearch(request, callback);
 }
 
-function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      createMarker(results[i]);
+function callback(results, status, pagination) {
+  if (status != google.maps.places.PlacesServiceStatus.OK) {
+    return;
+  } else {
+    createMarkers(results);
+    if (pagination.hasNextPage) {
+      sleep: 2;
+      pagination.nextPage();
     }
   }
 }
 
-function createMarker(place) {
-  var placeLoc = place.geometry.location;
+function createMarkers(places) {
+  for (var i = 0, place; place = places[i]; i++) {
+    var name = place.name;
 
-  var marker = new google.maps.Marker({
-    map: map,
-    position: place.geometry.location
-  });
+    var placeIcon = {
+      url: place.icon,
+      scaledSize: new google.maps.Size(25, 25),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(10, 0)
+    };
 
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent(place.name);
-    infowindow.open(map, this);
-  });
+    var marker = new google.maps.Marker({
+      map: map,
+      icon: placeIcon,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(name);
+      infowindow.open(map, this);
+    });
+  }
 }
