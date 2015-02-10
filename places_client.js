@@ -33,7 +33,6 @@ function callback(results, status, pagination) {
   } else {
     createMarkers(results);
     if (pagination.hasNextPage) {
-      sleep: 2;
       pagination.nextPage();
     }
   }
