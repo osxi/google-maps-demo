@@ -1,12 +1,22 @@
 var map;
 var infowindow;
 
-function initialize_map(el, lat, lon) {
+function initialize_map(el, lat, lon, locationMarkerText) {
   var location = new google.maps.LatLng(lat, lon);
 
   map = new google.maps.Map(document.getElementById(el), {
     center: location,
     zoom: 14
+  });
+
+  var locationMarker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+
+  google.maps.event.addListener(locationMarker, 'click', function() {
+    infowindow.setContent(locationMarkerText);
+    infowindow.open(map, this);
   });
 
   var request = {
