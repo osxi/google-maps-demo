@@ -48,26 +48,30 @@ function callback(results, status, pagination) {
   }
 }
 
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+
+  var placeIcon = {
+    url: place.icon,
+    scaledSize: new google.maps.Size(25, 25),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(10, 0)
+  };
+
+  var marker = new google.maps.Marker({
+    map: map,
+    icon: placeIcon,
+    position: place.geometry.location
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+}
+
 function createMarkers(places) {
   for (var i = 0, place; place = places[i]; i++) {
-    var name = place.name;
-
-    var placeIcon = {
-      url: place.icon,
-      scaledSize: new google.maps.Size(25, 25),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(10, 0)
-    };
-
-    var marker = new google.maps.Marker({
-      map: map,
-      icon: placeIcon,
-      position: place.geometry.location
-    });
-
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(name);
-      infowindow.open(map, this);
-    });
+    createMarker(place)
   }
 }
