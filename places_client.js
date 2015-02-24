@@ -77,3 +77,9 @@ function createMarker(place, placeType) {
     });
   });
 }
+
+function resetActiveClasses() {
+  mapControls.each(function(i, el) {
+    $(el).removeClass('active');
+  });
+}
