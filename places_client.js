@@ -12,7 +12,7 @@ function initialize_map(el, lat, lon, locationMarkerText, showType, keyWord) {
 
   map = new google.maps.Map(document.getElementById(el), {
     center: location,
-    zoom: 13
+    zoom: 14
   });
 
   var locationMarker = new google.maps.Marker({
