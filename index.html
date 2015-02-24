@@ -6,19 +6,35 @@
     <meta charset="utf-8">
     <style>
       html, body, #map-canvas {
-        height: 100%;
+        height: 95%;
         margin: 0px;
         padding: 0px
       }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="places_client.js"></script>
   </head>
   <body>
     <div id="map-canvas"></div>
+    <div id="map-controls">
+      <span class="map-control" data-type="restaurant">Restaurants</span>
+      <span class="map-control" data-type="school">Schools</span>
+      <span class="map-control" data-type="park">Parks</span>
+      <span class="map-control" data-type="hospital">Hospitals</span>
+      <span class="map-control" data-type="grocery_or_supermarket">Grocery Stores</span>
+      <span class="map-control" data-type="store">Shopping</span>
+    </div>
     <script type="text/javascript">
       google.maps.event.addDomListener(window, 'load', function() {
         initialize_map('map-canvas', -33.8670522, 151.1957362, 'testing123');
+      });
+      $('.map-control').each(function(i, el) {
+        var showType = $(el).data('type');
+        if (showType) { showType = [showType]; }
+        $(el).on('click', function() {
+  	  initialize_map('map-canvas', -33.8670522, 151.1957362, 'testing123', showType);
+        });
       });
     </script>
   </body>
