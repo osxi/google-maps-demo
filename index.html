@@ -53,18 +53,19 @@
       <span class="map-control" data-type="store" data-keyword="shopping -grocery">Shopping</span>
     </div>
     <script type="text/javascript">
-      var mapControls = $('.map-control');
+      var _$ = jQuery,
+         mapControls = $('.map-control');
 
       google.maps.event.addDomListener(window, 'load', function() {
         initialize_map('map-canvas', 29.7591992,-95.4794411, 'Your Location', 'restaurant|school|park|hospital|grocery_or_supermarket|store', '');
       });
 
       mapControls.each(function(i, el) {
-        var showType = $(el).data('type');
-        var keyWord = $(el).data('keyword');
-        $(el).on('click', function() {
+        var showType = _$(el).data('type');
+        var keyWord = _$(el).data('keyword');
+        _$(el).on('click', function() {
 	  resetActiveClasses();
-	  $(el).addClass('active');
+	  _$(el).addClass('active');
   	  initialize_map('map-canvas', 29.7591992,-95.4794411, 'Your Location', showType, keyWord);
         });
       });

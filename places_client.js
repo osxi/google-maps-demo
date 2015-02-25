@@ -12,7 +12,16 @@ function initialize_map(el, lat, lon, locationMarkerText, showType, keyWord) {
 
   map = new google.maps.Map(document.getElementById(el), {
     center: location,
-    zoom: 14
+    zoom: 14,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+      position: google.maps.ControlPosition.TOP_LEFT
+    },
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.TOP_RIGHT
+    },
+    zoomControl: true,
+    streetViewControl: true
   });
 
   var locationMarker = new google.maps.Marker({
@@ -80,6 +89,6 @@ function createMarker(place, placeType) {
 
 function resetActiveClasses() {
   mapControls.each(function(i, el) {
-    $(el).removeClass('active');
+    _$(el).removeClass('active');
   });
 }
