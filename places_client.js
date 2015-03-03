@@ -24,12 +24,20 @@ function initialize_map(el, lat, lon, locationMarkerText, showType, keyWord) {
     streetViewControl: true
   });
 
-  var locationMarker = new google.maps.Marker({
+  var yourLocationMarkerIcon = {
+    url: 'https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/256x256/DrawingPin1_Blue.png',
+    scaledSize: new google.maps.Size(25, 25),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(10, 0)
+  };
+
+  var yourLocationMarker = new google.maps.Marker({
     position: location,
-    map: map
+    map: map,
+    icon: yourLocationMarkerIcon
   });
 
-  google.maps.event.addListener(locationMarker, 'click', function() {
+  google.maps.event.addListener(yourLocationMarker, 'click', function() {
     infoWindow.setContent(locationMarkerText);
     infoWindow.open(map, this);
   });
